@@ -1,0 +1,36 @@
+.MainContent {
+  height: 100vh;
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 1;
+}
+.MainContent .first {
+  font-size: 1.8rem;
+  color: #383838;
+  margin-top: 30px;
+}
+.MainContent .second {
+  font-size: 8rem;
+  margin-bottom: 70px;
+  margin-left: 70px;
+  text-align: left;
+}
+.MainContent .second p {
+  margin: -30px;
+}
+.MainContent .second :nth-child(1) {
+  color: #b91e1e;
+}
+.MainContent .second :nth-child(2) {
+  color: #383838;
+}
+/*# sourceMappingURL=MainContent.css.map */
