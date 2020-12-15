@@ -6,6 +6,8 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import Home from './components/Home';
 import Presentacion from './components/Presentacion';
 
+// require('dotenv').config();
+
 const App = () => {
 	const anchors = [
 		'home',
@@ -17,7 +19,7 @@ const App = () => {
 		'repercusion-instagram22',
 		'propuesta'
 	];
-	
+
 	const anchorNames = [
 		'Home',
 		'Presentación',
