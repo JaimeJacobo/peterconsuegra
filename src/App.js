@@ -17,6 +17,7 @@ const App = () => {
 		'repercusion-instagram22',
 		'propuesta'
 	];
+	
 	const anchorNames = [
 		'Home',
 		'Presentación',
