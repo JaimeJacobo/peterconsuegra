@@ -17,6 +17,14 @@
   font-size: 1.8rem;
   color: #383838;
   margin-top: 30px;
+  margin-left: 60px;
+}
+.MainContent .first ol {
+  text-align: justify;
+}
+.MainContent .first ol a {
+  color: #383838;
+  text-decoration: none;
 }
 .MainContent .second {
   font-size: 8rem;
