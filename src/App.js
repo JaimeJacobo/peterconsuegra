@@ -9,7 +9,7 @@ import Presentacion from './components/Presentacion';
 // require('dotenv').config();
 
 const App = () => {
-	console.log(process.env.REACT_APP_PRUEBA)
+
 	const anchors = [
 		'home',
 		'presentacion',
@@ -35,7 +35,7 @@ const App = () => {
 		<div className="App">
 			<ReactFullpage
 				//fullpage options
-				licenseKey={process.env.FULLPAGE_ID}
+				licenseKey={process.env.REACT_APP_FULLPAGE_ID}
 				scrollingSpeed={1000}
 				anchors={anchors}
 				navigation
