@@ -9,7 +9,7 @@ import Presentacion from './components/Presentacion';
 // require('dotenv').config();
 
 const App = () => {
-	console.log('hola')
+	console.log(process.env.PRUEBA)
 	const anchors = [
 		'home',
 		'presentacion',
