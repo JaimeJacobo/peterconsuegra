@@ -1,0 +1,176 @@
+import React from 'react'
+import DatePicker from 'react-datepicker'
+
+//DEPENDENCIAS
+import FileService from '../services/FileService';
+import {Container, Col, Row, Form, Button, Card} from 'react-bootstrap'
+
+// import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
+
+class NewFileForm extends React.Component {
+
+  state={
+    newFile: {
+      travelID: this.props.singleTravelID,
+      fileName: '',
+      imageUrl: '',
+      category: 'Other',
+      comment: '',
+      date: new Date(),
+      fixedDate: ''
+    }
+  }
+
+  //Conexión Travel Service
+  service = new FileService();
+
+  //NEW TRAVEL FORM CONFIG
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ newFile: { ...this.state.newFile, [name]: value } })
+  }
+
+  handleFileUpload = e => {
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+    this.service.handleUpload(uploadData)
+      .then(response => {
+          return this.setState({ newFile: { ...this.state.newFile, imageUrl: response.secure_url } });
+      })
+      .catch(err => {
+          console.log("Error while uploading the file: ", err);
+      });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    
+    this.service.newFile(this.state.newFile)
+      .then(res => {
+          console.log('added: ', res);
+      })
+      .catch(err => {
+          console.log("Error while adding the thing: ", err);
+      });
+  }
+
+  onChangeDate = (date) =>{
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    const newDateFixed = `${day}/${month}/${year}`
+    
+    this.setState({newFile: { ...this.state.newFile, fixedDate: newDateFixed, date}})
+  }
+
+  getFixedDate = () => {
+    const date = this.state.newFile.date
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    const newDateFixed = `${day}/${month}/${year}`
+    
+    return this.setState({newFile: { ...this.state.newFile, fixedDate: newDateFixed}})
+  }
+
+  componentDidMount () {
+    this.getFixedDate()
+  }
+
+
+  render(){
+    return(
+
+      <div>
+        <Container>
+          <Row>
+            <Col lg="6" className="mx-auto mt-4">
+              <Card className="p-4 text-left">
+
+                <Form onSubmit={e =>this.handleSubmit(e)}>
+                  <Row>
+                    <Col>
+
+                      <Form.Group>
+                        <Form.Label htmlFor="fileName">File Name: </Form.Label>
+                        <Form.Control
+                        type="text" 
+                        name="fileName"
+                        onChange={(e)=>this.handleChange(e)}>
+                        </Form.Control>
+                      </Form.Group>
+
+                      <Row>
+                        <Col className="mr-4">
+                          <Form.Group >
+                            <Form.Label htmlFor="imageUrl">File: </Form.Label>
+                            <Form.File
+                              // custom
+                              name="imageUrl"
+                              onChange={(e)=>this.handleFileUpload(e)}/>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
+                      <Form.Group>
+                        <Form.Label htmlFor="category">Category: </Form.Label>
+                        <Form.Control
+                        as="select"
+                        name="category"
+                        onChange={(e)=>this.handleChange(e)}>
+                          <option>Other</option>
+                          <option>Hotel Reservation</option>
+                          <option>Transport Ticket</option>
+                          <option>Experience Ticket</option>                          
+                        </Form.Control>
+                      </Form.Group>
+
+                      <Form.Group>
+                        <Form.Label htmlFor="comment">Comment: </Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          type="text" 
+                          name="comment" 
+                          onChange={(e)=>this.handleChange(e)}>
+                        </Form.Control>
+                      </Form.Group>
+
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label>Date: </Form.Label> 
+                          </Col>                                                  
+                        </Row>
+                        <DatePicker
+                        selected={this.state.newFile.date}
+                        onChange={this.onChangeDate}
+                        dateFormat="dd/MM/yyyy"
+                        />
+                      </Form.Group>
+
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col className="mx-auto text-center">
+                      <Button type="submit">Upload file</Button>
+                    </Col>
+                  </Row>
+                
+                </Form>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
+  }
+}
+
+export default NewFileForm

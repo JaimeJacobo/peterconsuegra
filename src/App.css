@@ -5,4 +5,9 @@
   width: 100%;
   height: 100vh;
 }
+@media screen and (max-width: 1023px) {
+  .App {
+    display: none;
+  }
+}
 /*# sourceMappingURL=App.css.map */
